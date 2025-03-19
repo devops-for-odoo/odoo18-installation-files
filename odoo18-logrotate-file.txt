@@ -1,0 +1,12 @@
+/var/log/odoo18/odoo18.log {
+       daily
+       rotate 30
+       copytruncate
+       delaycompress
+       compress
+       notifempty
+       missingok
+       create 0644 odoo18 odoo18
+       su odoo18 odoo18
+       dateext
+}

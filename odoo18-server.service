@@ -1,0 +1,17 @@
+[Unit]
+Description=odoo18 Open Source ERP and CRM
+Requires=postgresql.service
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+PermissionsStartOnly=true
+SyslogIdentifier=odoo18-server
+User=odoo18
+Group=odoo18	
+ExecStart=/opt/odoo18/odoo18-venv/bin/python3 /opt/odoo18/odoo/odoo-bin --config=/etc/odoo18.conf
+WorkingDirectory=/opt/odoo18/
+StandardOutput=journal+console
+
+[Install]
+WantedBy=multi-user.target
