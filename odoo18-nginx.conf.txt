@@ -1,11 +1,11 @@
 ##Odoo with nginx##
 ## Odoo backend ##
-upstream odoo-ce {
+upstream odoo {
     server 127.0.0.1:8079 weight=1 fail_timeout=0;
 }
 
 ## Odoo Long Polling
-upstream odoo-ce-im {
+upstream odoo-im {
     server 127.0.0.1:8082 weight=1 fail_timeout=0;
 }
 
