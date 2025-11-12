@@ -1,0 +1,51 @@
+# odoo18-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo18
+  namespace: odoo18
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo18
+  template:
+    metadata:
+      labels:
+        app: odoo18
+    spec:
+      containers:
+        - name: odoo18
+          image: odoo:18.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8069
+          volumeMounts:
+            - name: odoo-config
+              mountPath: /etc/odoo
+            - name: odoo-data
+              mountPath: /var/lib/odoo
+            - name: odoo-logs
+              mountPath: /var/log/odoo
+          env:
+            - name: HOST
+              value: odoo18-postgres-postgresql
+            - name: USER
+              value: odoo18
+            - name: PASSWORD
+              value: odoo18
+            - name: DATABASE
+              value: odoo18db
+      volumes:
+        - name: odoo-config
+          configMap:
+            name: odoo18-config
+            items:
+              - key: odoo.conf
+                path: odoo.conf
+        - name: odoo-data
+          persistentVolumeClaim:
+            claimName: odoo18-data
+        - name: odoo-logs
+          persistentVolumeClaim:
+            claimName: odoo18-logs

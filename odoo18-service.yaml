@@ -1,0 +1,14 @@
+# odoo18-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: odoo18-service
+  namespace: odoo18
+spec:
+  selector:
+    app: odoo18
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8069
+  type: ClusterIP
